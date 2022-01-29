@@ -51,9 +51,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (_, index) {
                       return ListTile(
                         title: Text(items[index]),
-                        trailing: Icon(
-                          Icons.delete,
-                          color: Colors.red[400],
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red[400]),
+                          onPressed: () {
+                            setState(() {
+                              items.removeAt(index);
+                            });
+                          },
                         ),
                       );
                     }),
