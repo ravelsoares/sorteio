@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController textController = TextEditingController();
-  List items = ['Carlos', 'Ravel', 'João'];
+  List items = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +43,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       icon: const Icon(Icons.add),
                     ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                TextButton(
+                  onPressed: items.length > 0
+                      ? () {
+                          Random r = Random();
+                          String resultado = items[r.nextInt(items.length)]!;
+                          int index = items.indexOf(resultado);
+                          print(resultado);
+                          setState(() {
+                            items.removeAt(index);
+                          });
+                          print(items);
+                        }
+                      : null,
+                  child: const Text(
+                    'Sortear',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.green),
                   ),
                 ),
                 const SizedBox(height: 30),
