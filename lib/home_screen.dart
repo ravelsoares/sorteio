@@ -46,28 +46,48 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                TextButton(
-                  onPressed: items.length > 0
-                      ? () {
-                          Random r = Random();
-                          result = items[r.nextInt(items.length)]!;
-                          int index = items.indexOf(result);
-                          print(result);
-                          _requestpop(context);
-                          setState(() {
-                            items.removeAt(index);
-                          });
-                          print(items);
-                        }
-                      : null,
-                  child: const Text(
-                    'Sortear',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.green),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          items.clear();
+                        });
+                      },
+                      child: const Text('Limpar tudo',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.red),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: items.length > 0
+                          ? () {
+                              Random r = Random();
+                              result = items[r.nextInt(items.length)]!;
+                              int index = items.indexOf(result);
+                              print(result);
+                              _requestpop(context);
+                              setState(() {
+                                items.removeAt(index);
+                              });
+                              print(items);
+                            }
+                          : null,
+                      child: const Text(
+                        'Sortear',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.green),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 30),
                 ListView.builder(
