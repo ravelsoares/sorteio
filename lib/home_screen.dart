@@ -51,9 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        setState(() {
-                          items.clear();
-                        });
+                        _excluirTudo(context);
                       },
                       child: const Text('Limpar tudo',
                           style: TextStyle(
@@ -71,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               result = items[r.nextInt(items.length)]!;
                               int index = items.indexOf(result);
                               print(result);
-                              _requestpop(context);
+                              _sorteado(context);
                               setState(() {
                                 items.removeAt(index);
                               });
@@ -113,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<bool> _requestpop(context) {
+  Future<bool> _sorteado(context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -127,6 +125,41 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: const Center(child: Text('OK')),
             ),
+          ],
+        );
+      },
+    );
+    return Future.value(true);
+  }
+
+  Future<bool> _excluirTudo(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Limpar tudo?'),
+          content: const Text('Você perderá todos os elementos adicionados'),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Center(child: Text('Cancelar')),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      items.clear();
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: const Center(child: Text('OK')),
+                ),
+              ],
+            )
           ],
         );
       },
