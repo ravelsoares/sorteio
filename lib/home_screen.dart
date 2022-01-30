@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController textController = TextEditingController();
   List items = [];
+  late String result;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: items.length > 0
                       ? () {
                           Random r = Random();
-                          String resultado = items[r.nextInt(items.length)]!;
-                          int index = items.indexOf(resultado);
-                          print(resultado);
+                          result = items[r.nextInt(items.length)]!;
+                          int index = items.indexOf(result);
+                          print(result);
+                          _requestpop(context);
                           setState(() {
                             items.removeAt(index);
                           });
@@ -90,5 +91,26 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> _requestpop(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Sorteado!!'),
+          content: Text('"$result" foi sorteado!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Center(child: Text('OK')),
+            ),
+          ],
+        );
+      },
+    );
+    return Future.value(true);
   }
 }
