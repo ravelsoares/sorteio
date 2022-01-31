@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         child: Form(
           child: Padding(
@@ -39,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             textController.text = '';
                           });
                         }
-                        print(items);
                       },
                       icon: const Icon(Icons.add),
                     ),
@@ -63,17 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: items.length > 0
+                      onPressed: items.isNotEmpty
                           ? () {
                               Random r = Random();
                               result = items[r.nextInt(items.length)]!;
                               int index = items.indexOf(result);
-                              print(result);
                               _sorteado(context);
                               setState(() {
                                 items.removeAt(index);
                               });
-                              print(items);
                             }
                           : null,
                       child: const Text(
@@ -89,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 30),
                 ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: items.length,
                     itemBuilder: (_, index) {
